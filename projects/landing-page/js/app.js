@@ -91,9 +91,14 @@ function addCollapsibleClass() {
     }
 }
 
+function toggleDisplay(evt) {
+    let content = evt.target.nextElementSibling;
+    content.style.display = content.style.display != "none" ? "none" : "block";
+}
+
 // Add click event listener to all section headings
 function addSectionHeadsClickEvent() {
-    SECTIONS_HEADS.forEach((head) => head.addEventListener('click', ));
+    SECTIONS_HEADS.forEach((head) => head.addEventListener('click', toggleDisplay));
 }
 
 /**
@@ -116,3 +121,4 @@ document.addEventListener('scroll', setActiveSection);
 
 // Apply collapsible class to all section headings
 addCollapsibleClass();
+addSectionHeadsClickEvent();
