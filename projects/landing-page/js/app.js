@@ -18,6 +18,7 @@
  * 
 */
 const SECTIONS = document.querySelectorAll('section');
+const SECTIONS_HEADS = document.querySelectorAll('section h2');
 const NAV_BAR_LIST = document.querySelector('#navbar__list');
 const ACTIVE_SECTION_CLASS_NAME = 'your-active-class';
 const ACTIVE_LINK_CLASS_NAME = 'active';
@@ -28,8 +29,6 @@ const NAV_LINK_CLASS_NAME = 'menu__link';
  * Start Helper Functions
  * 
 */
-
-
 
 
 
@@ -85,6 +84,13 @@ function scrollToSection(evt) {
     document.getElementById('section' + SECTION_NAV.charAt(SECTION_NAV.length - 1)).scrollIntoView({ 'behavior': 'smooth' });
 }
 
+// add collapsible class to all section headings
+function addCollapsibleClass() {
+    for (let head of SECTIONS_HEADS) {
+        head.classList.add('collapsible');
+    }
+}
+
 /**
  * End Main Functions
  * Begin Events
@@ -102,3 +108,6 @@ NAV_BAR_LIST.addEventListener('click', scrollToSection);
 // Set sections as active
 document.addEventListener('scroll', setActiveSection);
 
+
+// Apply collapsible class to all section headings
+addCollapsibleClass();

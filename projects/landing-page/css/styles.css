@@ -114,6 +114,9 @@ section {
     color: #fff;
 }
 
+.collapsible:hover {
+    background-color: #cc1;
+}
 
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
