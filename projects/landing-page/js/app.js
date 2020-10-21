@@ -91,6 +91,7 @@ function addCollapsibleClass() {
     }
 }
 
+// Toggle section content display
 function toggleDisplay(evt) {
     let content = evt.target.nextElementSibling;
     content.style.display = content.style.display != "none" ? "none" : "block";
@@ -121,4 +122,6 @@ document.addEventListener('scroll', setActiveSection);
 
 // Apply collapsible class to all section headings
 addCollapsibleClass();
+
+// Collapse section content on section head click
 addSectionHeadsClickEvent();
