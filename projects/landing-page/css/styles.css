@@ -40,6 +40,12 @@ h2 {
     color: #fff;
 }
 
+section:nth-of-type(even) h2 {
+    margin-right: 0;
+    margin-left: auto;
+    text-align: right;
+}
+
 p {
     line-height: 1.6em;
     color: #eee;
