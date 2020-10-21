@@ -23,6 +23,7 @@ const NAV_BAR_LIST = document.querySelector('#navbar__list');
 const ACTIVE_SECTION_CLASS_NAME = 'your-active-class';
 const ACTIVE_LINK_CLASS_NAME = 'active';
 const NAV_LINK_CLASS_NAME = 'menu__link';
+const SCROLL_TOP_BTN = document.getElementById('topScrollBtn');
 
 /**
  * End Global Variables
@@ -69,13 +70,13 @@ function setActiveSection() {
                 document.querySelector('.' + ACTIVE_SECTION_CLASS_NAME).classList.remove(ACTIVE_SECTION_CLASS_NAME);
                 document.querySelector('.' + ACTIVE_LINK_CLASS_NAME).classList.remove(ACTIVE_LINK_CLASS_NAME);
             }
-            
+
             ACTIVE_SECTION.classList.add(ACTIVE_SECTION_CLASS_NAME);
             NAV_BAR_ITEMS[NEAREST_TOP_SECTION_IDX].classList.add(ACTIVE_LINK_CLASS_NAME);
         }
     }
-    
-    
+
+
 }
 
 // Scroll to anchor ID using scrollTO event
@@ -102,6 +103,12 @@ function addSectionHeadsClickEvent() {
     SECTIONS_HEADS.forEach((head) => head.addEventListener('click', toggleDisplay));
 }
 
+// Scroll to top of the page
+function scrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
 /**
  * End Main Functions
  * Begin Events
@@ -111,7 +118,7 @@ function addSectionHeadsClickEvent() {
 
 // Build menu 
 buildNavBar();
-const NAV_BAR_ITEMS = document.querySelectorAll('.' + NAV_LINK_CLASS_NAME); 
+const NAV_BAR_ITEMS = document.querySelectorAll('.' + NAV_LINK_CLASS_NAME);
 
 // Scroll to section on link click
 NAV_BAR_LIST.addEventListener('click', scrollToSection);
@@ -125,3 +132,13 @@ addCollapsibleClass();
 
 // Collapse section content on section head click
 addSectionHeadsClickEvent();
+
+
+// Add window scroll event
+window.addEventListener('scroll', function () {
+    SCROLL_TOP_BTN.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
+});
+
+// Scroll to top
+
+SCROLL_TOP_BTN.addEventListener('click', scrollToTop);
