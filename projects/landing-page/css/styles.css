@@ -86,12 +86,13 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+    cursor: pointer;
 }
 
 .navbar__menu .menu__link.active {
-        background: #808080;
-        color: #fff;
-        transition: ease 0.3s all;
+    background: #808080;
+    color: #fff;
+    transition: ease 0.3s all;
 }
 
 /* Header Styles */
@@ -116,6 +117,7 @@ section {
 
 .collapsible:hover {
     background-color: #cc1;
+    cursor: pointer;
 }
 
 /* ---- Theme Rules ---- */

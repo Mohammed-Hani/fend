@@ -84,11 +84,16 @@ function scrollToSection(evt) {
     document.getElementById('section' + SECTION_NAV.charAt(SECTION_NAV.length - 1)).scrollIntoView({ 'behavior': 'smooth' });
 }
 
-// add collapsible class to all section headings
+// Add collapsible class to all section headings
 function addCollapsibleClass() {
     for (let head of SECTIONS_HEADS) {
         head.classList.add('collapsible');
     }
+}
+
+// Add click event listener to all section headings
+function addSectionHeadsClickEvent() {
+    SECTIONS_HEADS.forEach((head) => head.addEventListener('click', ));
 }
 
 /**
