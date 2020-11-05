@@ -40,3 +40,17 @@ function listening() {
     console.log('Server is running');
     console.log(`Running at port ${port}`);
 }
+
+
+// Post route
+app.post('/addWeatherData', addWeather);
+
+function addWeather(req, res) {
+    projectData = req.body;
+    res.send({});
+}
+
+// Get route
+app.get('/getWeatherData', function (req, res) {
+    res.send(projectData);
+});
