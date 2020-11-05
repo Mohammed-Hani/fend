@@ -1,4 +1,7 @@
 /* Global Variables */
+const GENERATE_BTN = document.getElementById('generate');
+const ZIP_CODE_INPUT = document.getElementById('zip');
+const FEELINGS_ELEM = document.getElementById('feelings');
 
 // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
 // if country is not specified then the search works for USA as a default
@@ -7,9 +10,7 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?zip='
 const UNITS_FORMAT = '&units=metric';
 const API_KEY = '&appid=5842531da18d5146a394c4f23f0aaa13';
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
+
 
 // Get weather from external API
 const getWeather = async (baseURL, zipCode, unitsFormat, key) => {
@@ -17,6 +18,7 @@ const getWeather = async (baseURL, zipCode, unitsFormat, key) => {
     const RES = await fetch(baseURL + zipCode + unitsFormat + key);
     try {
         const DATA = await RES.json();
+        console.log('External api get response: ', DATA);
         return DATA.main.temp;
     } catch (error) {
         console.log("error", error);
@@ -37,7 +39,7 @@ const postData = async (url = '', data = {}) => {
 
     try {
         const RES = await response.json();
-        
+        console.log('internal api post response: ',RES);
     }
     catch (error) {
         console.log('error: ', error);
@@ -57,4 +59,26 @@ const updateUi = async (url = '') => {
         console.log("error", error);
         // appropriately handle the error
     }
+}
+
+// Add event listener to Generate Btn Click event
+GENERATE_BTN.addEventListener('click', performGetPostRequests)
+
+// Generate Btn event listener
+function performGetPostRequests() {
+    // Create a new date instance dynamically with JS
+    let d = new Date();
+    let newDate = d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear();
+
+    getWeather(BASE_URL, ZIP_CODE_INPUT.value, UNITS_FORMAT, API_KEY)
+        .then((temperature) => {
+            postData('/addWeatherData', {
+                temp: temperature,
+                date: newDate,
+                content: FEELINGS_ELEM.value
+            })
+                .then(() => {
+                    updateUi('/getWeatherData');
+                })
+        })
 }
