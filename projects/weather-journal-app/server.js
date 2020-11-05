@@ -1,11 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 const projectData = {};
 
-//baseUrl & apikey 
-//api.openweathermap.org / data / 2.5 / weather ? q = { city name } & appid={ API key }
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather?q='
-const apiKey = '&appid=5842531da18d5146a394c4f23f0aaa13';
-
 // Require Express to run server and routes
 const express = require('express');
 
