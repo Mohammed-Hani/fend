@@ -19,7 +19,13 @@ const getWeather = async (baseURL, zipCode, unitsFormat, key) => {
     try {
         const DATA = await RES.json();
         console.log('External api get response: ', DATA);
-        return DATA.main.temp;
+
+        //Handle response error codes
+        if (DATA.cod != "200")
+            alert(`An error occured with the message: ${DATA.message}`);
+        else
+            return DATA.main.temp;
+
     } catch (error) {
         console.log("error", error);
         // appropriately handle the error
@@ -66,19 +72,27 @@ GENERATE_BTN.addEventListener('click', performGetPostRequests)
 
 // Generate Btn event listener
 function performGetPostRequests() {
-    // Create a new date instance dynamically with JS
-    let d = new Date();
-    let newDate = d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear();
+    // Handle empty zip code
+    if (ZIP_CODE_INPUT.value.trim() == "")
+        alert("Please enter a valid zip code!");
+    else {
+        // Create a new date instance dynamically with JS
+        let d = new Date();
+        let newDate = d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear();
 
-    getWeather(BASE_URL, ZIP_CODE_INPUT.value, UNITS_FORMAT, API_KEY)
-        .then((temperature) => {
-            postData('/addWeatherData', {
-                temp: temperature,
-                date: newDate,
-                content: FEELINGS_ELEM.value
-            })
-                .then(() => {
-                    updateUi('/getWeatherData');
+        getWeather(BASE_URL, ZIP_CODE_INPUT.value.trim(), UNITS_FORMAT, API_KEY)
+            .then((temperature) => {
+                postData('/addWeatherData', {
+                    temp: temperature,
+                    date: newDate,
+                    content: FEELINGS_ELEM.value
                 })
-        })
+            })
+            .then(() => {
+                updateUi('/getWeatherData');
+            })
+            .catch((error) => console.log(`Error processing the requests: ${error}`));
+    }
+    
+        
 }
